@@ -321,16 +321,30 @@ nav {
 }
 
 .hero h2 {
-    font-size: 2.8em;
-    margin-bottom: 15px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 3.5em;
+    margin-bottom: 20px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #00f2fe 0%, #a6c1ee 33%, #ff7eb3 66%, #00f2fe 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+    animation: fadeUp 1s forwards 0.2s, gradientShift 4s linear infinite 1.2s;
+    letter-spacing: -1px;
+}
+
+@keyframes gradientShift {
+    to {
+        background-position: 200% center;
+    }
 }
 
 .hero p {
-    font-size: 1.3em;
-    margin-bottom: 40px;
+    font-size: 1.35em;
+    margin-bottom: 45px;
     line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .buttons {
@@ -371,6 +385,68 @@ nav {
 .btn-whatsapp:hover {
     background: transparent !important;
     color: #25D366 !important;
+}
+
+/* Prize Pool Tag Styles */
+.prize-pool-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #fceeb5 0%, #fba127 50%, #fceeb5 100%);
+    background-size: 200% auto;
+    color: #000;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 1.25em;
+    margin-bottom: 30px;
+    box-shadow: 0 0 30px rgba(251, 161, 39, 0.5), 0 0 60px rgba(251, 161, 39, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 3px solid #fff;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUpTag 1s forwards 0.5s, floatTag 3s ease-in-out infinite 1.5s, shimmerGold 4s linear infinite;
+}
+
+@keyframes shimmerGold {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.prize-pool-tag i {
+    font-size: 1.2em;
+    /* Removed drop shadow since bg is bright */
+}
+
+@keyframes fadeUpTag {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatTag {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes tagPulse {
+    from {
+        box-shadow: 0 0 20px rgba(255, 117, 140, 0.4);
+    }
+
+    to {
+        box-shadow: 0 0 35px rgba(255, 117, 140, 0.7), 0 0 15px rgba(255, 255, 255, 0.4);
+    }
 }
 
 /* ===== ABOUT SECTION ===== */
