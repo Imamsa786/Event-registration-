@@ -43,11 +43,11 @@ if (hamburger && navLinks) {
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
         const target = document.getElementById(targetId);
 
         if (target) {
+            e.preventDefault();
             const headerOffset = 100;
             const elementPosition = target.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -184,7 +184,6 @@ if (eventModal) {
 
 // ===== MEMBER MODAL =====
 const memberModal = document.getElementById('member-modal');
-const modalImg = document.getElementById('modal-img');
 const modalName = document.getElementById('modal-name');
 const modalPosition = document.getElementById('modal-position');
 const modalEmail = document.getElementById('modal-email');
@@ -193,19 +192,30 @@ const memberModalClose = memberModal ? memberModal.querySelector('.close') : nul
 
 if (memberModal) {
     document.querySelectorAll('.member').forEach(member => {
-        member.addEventListener('click', function () {
+        member.addEventListener('click', function (e) {
+            // If the click was on a link or inside a link, don't open the modal
+            if (e.target.closest('a')) {
+                return;
+            }
             const name = this.getAttribute('data-name');
             const position = this.getAttribute('data-position');
             const email = this.getAttribute('data-email');
             const linkedin = this.getAttribute('data-linkedin');
-            const imagePath = this.getAttribute('data-image');
-            const imgSrc = imagePath || 'logos/KARE.png'; // Use data-image or fallback
 
-            modalImg.src = imgSrc;
             modalName.textContent = name;
             modalPosition.textContent = position;
-            modalEmail.textContent = email;
-            modalLinkedin.href = linkedin;
+            modalEmail.innerHTML = `<i class="fas fa-envelope"></i> <a href="mailto:${email}" style="color: inherit; text-decoration: none;">${email}</a>`;
+
+            const cleanLinkedin = linkedin ? linkedin.trim() : '';
+            if (cleanLinkedin && cleanLinkedin !== '#') {
+                modalLinkedin.setAttribute('href', cleanLinkedin);
+                modalLinkedin.setAttribute('target', '_blank');
+                modalLinkedin.setAttribute('rel', 'noopener noreferrer');
+                modalLinkedin.innerHTML = `<i class="fab fa-linkedin"></i> LinkedIn Profile`;
+                modalLinkedin.style.display = 'inline-block';
+            } else {
+                modalLinkedin.style.display = 'none';
+            }
 
             memberModal.classList.add('show');
         });
@@ -244,25 +254,7 @@ document.querySelectorAll('.member').forEach(member => {
 
 });
 
-// ===== CUSTOM CURSOR & MOUSE TRACKING =====
-const cursor = document.querySelector('.cursor-glow');
 
-document.addEventListener('mousemove', (e) => {
-    if (cursor) {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    }
-});
-
-// Hover effect for cursor
-document.querySelectorAll('a, button, .member, .event, .info-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        if (cursor) cursor.classList.add('active');
-    });
-    el.addEventListener('mouseleave', () => {
-        if (cursor) cursor.classList.remove('active');
-    });
-});
 
 // ===== 3D TILT EFFECT (Vanilla JS) =====
 function initTilt(selector) {
