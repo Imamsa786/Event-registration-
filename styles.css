@@ -23,29 +23,7 @@
     --border-glass: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.cursor-glow {
-    width: 20px;
-    height: 20px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: screen;
-    /* Changed for dark mode */
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s, background-color 0.3s;
-    box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--primary-color);
-    opacity: 0.6;
-}
 
-.cursor-glow.active {
-    width: 60px;
-    height: 60px;
-    background: rgba(5, 117, 230, 0.5);
-    mix-blend-mode: normal;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-}
 
 /* Reset and base styles */
 * {
@@ -116,6 +94,27 @@ header .container {
     max-height: 45px;
     width: auto;
     filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+    animation: logoFloat 3s ease-in-out infinite;
+}
+
+.logos img:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.logos img:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes logoFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
 .center {
@@ -321,15 +320,15 @@ nav {
 }
 
 .hero h2 {
-    font-size: 3.5em;
+    font-size: 4.5em;
     margin-bottom: 20px;
     font-weight: 900;
-    background: linear-gradient(135deg, #00f2fe 0%, #a6c1ee 33%, #ff7eb3 66%, #00f2fe 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #00f2fe 30%, #7000ff 70%, #ffffff 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+    text-shadow: 0 0 30px rgba(0, 242, 254, 0.6), 0 0 60px rgba(0, 242, 254, 0.3);
     animation: fadeUp 1s forwards 0.2s, gradientShift 4s linear infinite 1.2s;
     letter-spacing: -1px;
 }
@@ -709,6 +708,13 @@ nav {
     font-size: 1em;
     margin-bottom: 10px;
     letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.timeline-item .time i {
+    font-size: 0.9em;
 }
 
 .timeline-item .content {
@@ -908,6 +914,15 @@ nav {
     font-size: 1.4em;
     color: #fff;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.event h3 i {
+    font-size: 0.9em;
+    opacity: 0.8;
 }
 
 .event p {
@@ -1052,22 +1067,7 @@ nav {
     border-color: rgba(5, 117, 230, 0.3);
 }
 
-.member img {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 20px;
-    border: 3px solid var(--primary-color);
-    box-shadow: 0 0 20px rgba(5, 117, 230, 0.3);
-    transition: all 0.5s ease;
-}
 
-.member:hover img {
-    transform: scale(1.1) rotate(5deg);
-    border-color: #fff;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-}
 
 .member h3 {
     margin-bottom: 5px;
@@ -1264,17 +1264,6 @@ footer {
     opacity: 1;
 }
 
-.modal-content img {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 25px;
-    border: 4px solid var(--primary-color);
-    box-shadow: 0 0 30px rgba(5, 117, 230, 0.2);
-    display: none;
-}
-
 .modal-content h2 {
     margin-bottom: 10px;
     color: #fff;
@@ -1304,6 +1293,19 @@ footer {
 .modal-content a:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(5, 117, 230, 0.4);
+}
+
+#modal-email a {
+    transition: color 0.3s ease;
+}
+
+#modal-email a:hover {
+    color: var(--primary-color) !important;
+}
+
+#modal-email i {
+    margin-right: 8px;
+    color: var(--primary-color);
 }
 
 .close {
@@ -1345,7 +1347,6 @@ footer {
 @media (max-width: 768px) {
     body {
         padding-top: 80px;
-        /* Reduced since header is smaller */
     }
 
     header .container {
@@ -1362,12 +1363,31 @@ footer {
         max-height: 35px;
     }
 
+    .center {
+        min-width: unset;
+        flex: unset;
+    }
+
     .center h1 {
-        font-size: 1.2em;
+        font-size: 1.1em;
+        white-space: nowrap;
+    }
+
+    header {
+        background-color: rgba(15, 23, 42, 0.95) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .center img {
+        max-height: 28px;
     }
 
     .hamburger {
         display: flex;
+    }
+
+    .hamburger span {
+        background-color: #fff;
     }
 
     .nav-links {
@@ -1377,8 +1397,8 @@ footer {
         top: 100%;
         right: 0;
         left: 0;
-        background-color: rgba(10, 11, 30, 0.98);
-        padding: 20px;
+        background-color: rgba(15, 23, 42, 0.98);
+        padding: 20px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         gap: 0;
         backdrop-filter: blur(20px);
@@ -1389,11 +1409,18 @@ footer {
     }
 
     .nav-links a {
-        padding: 15px 20px;
+        padding: 15px 30px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         margin: 0;
-        text-align: center;
+        text-align: left;
         font-size: 1.1em;
+        width: 100%;
+    }
+
+    .nav-links a::after {
+        bottom: 10px;
+        left: 30px;
+        width: 40px;
     }
 
     .nav-links a:last-child {
@@ -1401,43 +1428,69 @@ footer {
     }
 
     .hero {
-        padding: 120px 0 60px;
+        padding: 140px 0 80px;
         background-attachment: scroll;
     }
 
     .hero h2 {
-        font-size: 2em;
-        padding: 0 10px;
+        font-size: 2.5em;
+        line-height: 1.2;
+        margin-bottom: 15px;
     }
 
     .hero p {
         font-size: 1.1em;
-        padding: 0 20px;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+
+    .prize-pool-tag {
+        font-size: 0.95em;
+        padding: 10px 25px;
+        margin-bottom: 30px;
+    }
+
+    .countdown {
+        gap: 15px;
+        margin-top: 40px;
+    }
+
+    .countdown-item {
+        min-width: 70px;
+        padding: 10px;
+    }
+
+    .countdown-item span:first-child {
+        font-size: 1.5em;
     }
 
     .buttons {
         flex-direction: column;
         align-items: center;
-        width: 100%;
+        gap: 15px;
+        margin-top: 40px;
     }
 
     .btn {
-        width: 90%;
-        max-width: 320px;
-        justify-content: center;
+        width: 100%;
+        max-width: 280px;
+        padding: 14px 30px;
     }
 
     .past-events h2,
     .core-members h2,
-    .about h2 {
-        font-size: 2em;
+    .about h2,
+    .event-details h2 {
+        font-size: 2.2em;
+        margin-bottom: 40px;
     }
 
     .events-grid,
-    .members-grid {
+    .members-grid,
+    .details-top {
         grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 10px;
+        gap: 25px;
+        padding: 0 15px;
     }
 
     .member img {
@@ -1445,27 +1498,53 @@ footer {
         height: 120px;
     }
 
-    .event-details h2 {
-        font-size: 2.2em;
+    .timeline-wrapper h3 {
+        font-size: 2em;
         margin-bottom: 40px;
     }
 
-    .details-top {
-        gap: 20px;
-        margin-bottom: 60px;
+    .event-purpose {
+        margin-top: 60px;
+        padding: 40px 20px;
     }
 
-    .timeline-wrapper h3 {
-        font-size: 2em;
+    .event-purpose h3 {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+
+    .event-purpose li {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .event-purpose i {
+        font-size: 2.5em;
+    }
+
+    .register-callout {
+        margin: 60px 15px;
+        padding: 40px 20px;
+    }
+
+    .register-callout h2 {
+        font-size: 2.5em;
+    }
+
+    .register-callout p {
+        font-size: 1.1em;
+        margin-bottom: 35px;
     }
 
     .modal-content {
-        width: 95%;
-        padding: 25px;
-        margin: 10% auto;
+        width: 92%;
+        padding: 30px 20px;
+        margin: 15% auto;
     }
 
     .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
         text-align: center;
     }
 
@@ -1484,48 +1563,49 @@ footer {
 }
 
 @media (max-width: 480px) {
-    body {
-        padding-top: 150px;
+    header .container {
+        padding: 0 15px;
     }
 
     .center h1 {
-        font-size: 1.1em;
+        font-size: 1em;
+    }
+
+    .hero {
+        padding: 120px 0 50px;
     }
 
     .hero h2 {
-        font-size: 1.6em;
+        font-size: 2.2em;
     }
 
     .hero p {
-        font-size: 0.95em;
+        font-size: 1em;
     }
 
-    .event-details h2 {
-        font-size: 1.6em;
-        margin-bottom: 30px;
+    .countdown {
+        gap: 10px;
     }
 
-    .timeline-wrapper h3 {
-        font-size: 1.5em;
+    .countdown-item {
+        min-width: 60px;
+        padding: 8px;
+    }
+
+    .countdown-item span:first-child {
+        font-size: 1.3em;
+    }
+
+    .countdown-item .label {
+        font-size: 0.7em;
     }
 
     .past-events h2,
     .core-members h2,
-    .about h2 {
-        font-size: 1.5em;
-    }
-
-    .member img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .event-details h2 {
-        font-size: 1.8em;
-    }
-
+    .about h2,
+    .event-details h2,
     .timeline-wrapper h3 {
-        font-size: 1.6em;
+        font-size: 1.8em;
     }
 
     .info-card {
@@ -1533,26 +1613,22 @@ footer {
     }
 
     .info-card i {
-        font-size: 2.8em;
+        font-size: 2.5em;
     }
 
-    .contact h2 {
-        font-size: 1.6em;
-    }
-
-    .contact p {
-        font-size: 0.9em;
+    .member img {
+        width: 100px;
+        height: 100px;
     }
 
     .footer-grid {
-        grid-template-columns: 1fr;
         gap: 30px;
     }
 
-    .social {
-        gap: 15px;
+    .footer-grid h3 {
+        font-size: 1.2em;
+        margin-bottom: 20px;
     }
-
 }
 
 /* ===== PREMIUM ANIMATIONS & INTERACTIVITY ===== */
